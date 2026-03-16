@@ -1,0 +1,171 @@
+.reflect-glass-anchor {
+  position: absolute;
+  inset: 12px;
+  pointer-events: none;
+}
+
+.reflect-glass-button {
+  --drag-x: 0px;
+  --drag-y: 0px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 40;
+  min-width: 196px;
+  min-height: 56px;
+  padding: 0 22px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 22px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #0f5ea8;
+  text-decoration: none;
+  transform: translate3d(var(--drag-x), var(--drag-y), 0);
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
+  touch-action: none;
+  user-select: none;
+  cursor: grab;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.reflect-glass-button.dragging {
+  cursor: grabbing;
+}
+
+.reflect-glass-button:hover {
+  transform: translate3d(var(--drag-x), calc(var(--drag-y) - 1px), 0);
+  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.12);
+}
+
+.reflect-glass-button:active,
+.reflect-glass-button.dragging {
+  transform: translate3d(var(--drag-x), var(--drag-y), 0);
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.1);
+}
+
+.reflect-glass-button:focus-visible {
+  outline: 2px solid rgba(15, 94, 168, 0.32);
+  outline-offset: 4px;
+}
+
+.reflect-glass-surface,
+.reflect-glass-ornament {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.reflect-glass-surface {
+  z-index: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.3) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    inset 0 -10px 16px rgba(162, 196, 232, 0.08);
+  backdrop-filter: blur(12px) saturate(145%);
+  -webkit-backdrop-filter: blur(12px) saturate(145%);
+}
+
+.reflect-glass-ornament {
+  z-index: 1;
+  inset: 1px;
+  border-radius: 21px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.02) 48%, rgba(196, 221, 247, 0.04) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    inset 0 -7px 14px rgba(167, 199, 232, 0.05);
+}
+
+.reflect-glass-button::before,
+.reflect-glass-button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.reflect-glass-button::before {
+  top: 6px;
+  height: 16px;
+  margin: 0 12px;
+  z-index: 2;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.22) 82%, transparent 100%);
+  opacity: 0.7;
+}
+
+.reflect-glass-button::after {
+  inset: auto 16px 10px;
+  height: 10px;
+  z-index: 1;
+  border-radius: 999px;
+  background: radial-gradient(circle at center, rgba(126, 180, 240, 0.12) 0%, rgba(126, 180, 240, 0.04) 56%, transparent 100%);
+  filter: blur(7px);
+  opacity: 0.6;
+}
+
+.reflect-glass-label {
+  position: relative;
+  z-index: 3;
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+html[data-browser-engine="chromium"] .reflect-glass-button {
+  box-shadow:
+    0 4px 18px rgba(15, 23, 42, 0.07),
+    0 12px 24px rgba(15, 23, 42, 0.035);
+}
+
+html[data-browser-engine="chromium"] .reflect-glass-surface {
+  background: rgba(255, 255, 255, 0.28);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: url("#reflectGlass");
+  -webkit-backdrop-filter: url("#reflectGlass");
+}
+
+html[data-browser-engine="chromium"] .reflect-glass-ornament {
+  background:
+    radial-gradient(88% 46% at 50% 0%, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.12) 32%, transparent 56%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(248, 251, 255, 0.02) 58%, rgba(212, 229, 247, 0.03) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.46),
+    inset 0 -1px 0 rgba(182, 205, 231, 0.12),
+    0 0 0 1px rgba(255, 255, 255, 0.12);
+  opacity: 0.72;
+}
+
+html[data-browser-engine="chromium"] .reflect-glass-button::before {
+  top: 7px;
+  height: 10px;
+  margin: 0 16px;
+  opacity: 0.4;
+}
+
+html[data-browser-engine="chromium"] .reflect-glass-button::after {
+  inset: auto 18px 8px;
+  height: 8px;
+  opacity: 0.24;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .reflect-glass-button {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(236, 244, 251, 0.94) 100%) padding-box,
+      linear-gradient(145deg, rgba(255, 255, 255, 0.98) 0%, rgba(166, 198, 235, 0.4) 100%) border-box;
+  }
+}

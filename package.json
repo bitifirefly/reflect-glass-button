@@ -1,0 +1,23 @@
+{
+  "name": "reflect-glass-button",
+  "version": "0.1.0",
+  "description": "Standalone reflect glass button example with drag support and SVG-enhanced distortion.",
+  "license": "MIT",
+  "type": "module",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitifirefly/reflect-glass-button.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bitifirefly/reflect-glass-button/issues"
+  },
+  "homepage": "https://github.com/bitifirefly/reflect-glass-button#readme",
+  "scripts": {
+    "dev": "node ./scripts/serve.mjs",
+    "start": "node ./scripts/serve.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
