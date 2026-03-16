@@ -17,6 +17,12 @@ Three captures from the live showcase composition:
   <img src="./demo/captures/showcase-capture-3.png" width="32%" alt="Reflect Glass Button showcase capture 3" />
 </p>
 
+## Recording
+
+GitHub attachment playback:
+
+https://github.com/user-attachments/assets/7d852b08-4c27-4827-ba61-e7f2b669e760
+
 ## Structure
 
 ```text
