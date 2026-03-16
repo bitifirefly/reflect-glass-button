@@ -7,17 +7,15 @@ an inline SVG filter, layered CSS materials, and drag support.
 This package is self-contained and does not include any application-specific
 logic or branding.
 
-## Preview
+## Showcase Captures
 
-Close-up synthetic preview built from local-only assets:
+Three captures from the live showcase composition:
 
-![Reflect Glass Button preview](./demo/readme-preview.png)
-
-## Motion Preview
-
-Animated drag preview with a textless pure glass button:
-
-![Reflect Glass Button motion](./demo/readme-motion.gif)
+<p align="center">
+  <img src="./demo/captures/showcase-capture-1.png" width="32%" alt="Reflect Glass Button showcase capture 1" />
+  <img src="./demo/captures/showcase-capture-2.png" width="32%" alt="Reflect Glass Button showcase capture 2" />
+  <img src="./demo/captures/showcase-capture-3.png" width="32%" alt="Reflect Glass Button showcase capture 3" />
+</p>
 
 ## Recording
 
@@ -36,6 +34,9 @@ reflect-glass-button/
 │   └── motion-pill/
 ├── demo/
 │   ├── captures/
+│   │   ├── showcase-capture-1.png
+│   │   ├── showcase-capture-2.png
+│   │   ├── showcase-capture-3.png
 │   │   └── showcase-recording.mov
 │   ├── demo.css
 │   ├── index.html
@@ -181,6 +182,13 @@ See [IMPLEMENTATION.md](./IMPLEMENTATION.md) for a breakdown of:
 - visual layers
 - drag behavior
 - extraction guidance
+
+## Acknowledgements
+
+The material direction and CSS/SVG experimentation for this demo were inspired
+by the Kube.io article
+[`Liquid Glass with CSS + SVG`](https://kube.io/blog/liquid-glass-css-svg/).
+Thanks to the author for publishing the technique breakdown.
 
 ## License
 
