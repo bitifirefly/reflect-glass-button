@@ -145,11 +145,11 @@ you need five pieces:
 ```html
 <div class="reflect-glass-anchor" aria-hidden="true"></div>
 
-<a class="reflect-glass-button" data-reflect-glass href="#">
+<button class="reflect-glass-button" data-reflect-glass type="button">
   <span class="reflect-glass-surface" aria-hidden="true"></span>
   <span class="reflect-glass-ornament" aria-hidden="true"></span>
   <span class="reflect-glass-label">Launch</span>
-</a>
+</button>
 ```
 
 4. Core stylesheet

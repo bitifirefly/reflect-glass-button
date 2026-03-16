@@ -32,6 +32,8 @@
   --drag-x: 0px;
   --drag-y: 0px;
   position: fixed;
+  appearance: none;
+  -webkit-appearance: none;
   left: 0;
   top: 0;
   z-index: 40;
@@ -47,6 +49,7 @@
   border: 1px solid transparent;
   background: transparent;
   color: #0f5ea8;
+  font: inherit;
   text-decoration: none;
   transform: translate3d(var(--drag-x), var(--drag-y), 0);
   box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);

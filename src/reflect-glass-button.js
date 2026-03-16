@@ -51,6 +51,8 @@
     var dragState = null;
     var suppressClick = false;
 
+    target.setAttribute("draggable", "false");
+
     function applyOffset() {
       target.style.setProperty("--drag-x", offset.x + "px");
       target.style.setProperty("--drag-y", offset.y + "px");
@@ -100,7 +102,7 @@
       target.setPointerCapture(event.pointerId);
     });
 
-    target.addEventListener("pointermove", function (event) {
+    function handlePointerMove(event) {
       if (!dragState || dragState.pointerId !== event.pointerId) {
         return;
       }
@@ -116,7 +118,7 @@
       offset.x = clamp(dragState.startOffsetX + deltaX, bounds.minX, bounds.maxX);
       offset.y = clamp(dragState.startOffsetY + deltaY, bounds.minY, bounds.maxY);
       applyOffset();
-    });
+    }
 
     function finishDrag(event) {
       if (!dragState || dragState.pointerId !== event.pointerId) {
@@ -131,8 +133,12 @@
       }
     }
 
+    target.addEventListener("pointermove", handlePointerMove);
     target.addEventListener("pointerup", finishDrag);
     target.addEventListener("pointercancel", finishDrag);
+    window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("pointerup", finishDrag);
+    window.addEventListener("pointercancel", finishDrag);
 
     target.addEventListener("click", function (event) {
       if (!suppressClick) {
@@ -150,6 +156,9 @@
       measure: measure,
       destroy: function () {
         window.removeEventListener("resize", measure);
+        window.removeEventListener("pointermove", handlePointerMove);
+        window.removeEventListener("pointerup", finishDrag);
+        window.removeEventListener("pointercancel", finishDrag);
       },
     };
   }

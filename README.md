@@ -107,11 +107,11 @@ npm run generate:assets -- --preset hero-pill
 ```html
 <div class="reflect-glass-anchor" aria-hidden="true"></div>
 
-<a class="reflect-glass-button" data-reflect-glass href="#">
+<button class="reflect-glass-button" data-reflect-glass type="button">
   <span class="reflect-glass-surface" aria-hidden="true"></span>
   <span class="reflect-glass-ornament" aria-hidden="true"></span>
   <span class="reflect-glass-label">Launch</span>
-</a>
+</button>
 ```
 
 6. Set size, radius, and filter variables for your preset.
