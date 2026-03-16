@@ -2,3 +2,5 @@ node_modules/
 npm-debug.log*
 .DS_Store
 .playwright-cli/
+.vercel/
+reflect-glass-button.mp4
