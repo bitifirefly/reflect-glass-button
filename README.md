@@ -8,7 +8,15 @@ logic or branding.
 
 ## Preview
 
+Close-up synthetic preview built from local-only assets:
+
 ![Reflect Glass Button preview](./demo/readme-preview.png)
+
+## Motion Preview
+
+Animated drag preview with a textless pure glass button:
+
+![Reflect Glass Button motion](./demo/readme-motion.gif)
 
 ## Structure
 

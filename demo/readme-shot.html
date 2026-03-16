@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Reflect Glass Button Close-up</title>
+    <link rel="stylesheet" href="../src/reflect-glass-button.css" />
+    <link rel="stylesheet" href="./readme-shot.css" />
+  </head>
+  <body>
+    <svg
+      aria-hidden="true"
+      width="0"
+      height="0"
+      style="position: absolute; pointer-events: none"
+    >
+      <defs>
+        <filter id="reflectGlass" color-interpolation-filters="sRGB">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="0.8" result="blurredSource" />
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.018 0.12"
+            numOctaves="1"
+            seed="7"
+            result="noise"
+          />
+          <feColorMatrix
+            in="noise"
+            type="matrix"
+            values="
+              1 0 0 0 0
+              0 1 0 0 0
+              0 0 0 0 0
+              0 0 0 1 0
+            "
+            result="displacementMap"
+          />
+          <feDisplacementMap
+            in="blurredSource"
+            in2="displacementMap"
+            scale="26"
+            xChannelSelector="R"
+            yChannelSelector="G"
+            result="displaced"
+          />
+          <feColorMatrix
+            in="displaced"
+            type="saturate"
+            values="3.2"
+            result="boosted"
+          />
+          <feBlend in="boosted" in2="displaced" mode="screen" />
+        </filter>
+      </defs>
+    </svg>
+
+    <main class="shot-shell">
+      <section class="shot-stage">
+        <div class="shot-grid" aria-hidden="true"></div>
+        <div class="shot-orb shot-orb-a" aria-hidden="true"></div>
+        <div class="shot-orb shot-orb-b" aria-hidden="true"></div>
+        <div class="shot-glow" aria-hidden="true"></div>
+
+        <div class="shot-copy">
+          <p class="shot-eyebrow">Close-up Preview</p>
+          <h1>Make the glass distortion visible at a glance.</h1>
+          <p class="shot-text">
+            This synthetic scene is built only from local HTML, CSS, and SVG.
+            Dense type, sharp separators, and saturated color bands sit directly
+            behind the button so blur, refraction, and highlight layers remain easy to see.
+          </p>
+        </div>
+
+        <section class="shot-board" aria-label="Synthetic interface">
+          <div class="board-header">
+            <div class="board-brand">
+              <span class="board-dot"></span>
+              <span>Signal Atlas</span>
+            </div>
+            <div class="board-badges">
+              <span>visual test</span>
+              <span>local only</span>
+            </div>
+          </div>
+
+          <div class="board-hero">
+            <div class="board-column board-column-a">
+              <h2>Dense editorial backdrop</h2>
+              <p>
+                Layered copy lines, numeric chips, and hard dividers give the
+                glass edge enough structure to bend and blur.
+              </p>
+              <div class="board-stat-row">
+                <div class="board-stat">
+                  <strong>64</strong>
+                  <span>text lines</span>
+                </div>
+                <div class="board-stat">
+                  <strong>6</strong>
+                  <span>color bands</span>
+                </div>
+                <div class="board-stat">
+                  <strong>SVG</strong>
+                  <span>distortion path</span>
+                </div>
+              </div>
+              <div class="board-lines" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
+            <div class="board-column board-column-b">
+              <div class="color-ribbon color-ribbon-a"></div>
+              <div class="color-ribbon color-ribbon-b"></div>
+              <div class="color-ribbon color-ribbon-c"></div>
+
+              <div class="micro-card">
+                <span class="micro-kicker">Interface field</span>
+                <p>
+                  Notice how the button samples both text and color, instead of
+                  only showing a generic white blur.
+                </p>
+              </div>
+
+              <div class="micro-table" aria-hidden="true">
+                <span>index</span>
+                <span>signal</span>
+                <span>phase</span>
+                <span>14</span>
+                <span>0.82</span>
+                <span>active</span>
+                <span>15</span>
+                <span>0.66</span>
+                <span>queued</span>
+                <span>16</span>
+                <span>0.91</span>
+                <span>stable</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="shot-focus-anchor reflect-glass-anchor" aria-hidden="true"></div>
+        </section>
+      </section>
+
+      <a
+        class="reflect-glass-button readme-hero-button"
+        data-reflect-glass
+        href="https://example.com"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Preview button"
+      >
+        <span class="reflect-glass-surface" aria-hidden="true"></span>
+        <span class="reflect-glass-ornament" aria-hidden="true"></span>
+        <span class="reflect-glass-label">Reflect Surface</span>
+      </a>
+    </main>
+
+    <script src="../src/reflect-glass-button.js"></script>
+    <script>
+      window.ReflectGlassButton.init();
+    </script>
+  </body>
+</html>
