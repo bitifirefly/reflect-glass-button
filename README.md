@@ -17,13 +17,6 @@ Three captures from the live showcase composition:
   <img src="./demo/captures/showcase-capture-3.png" width="32%" alt="Reflect Glass Button showcase capture 3" />
 </p>
 
-## Recording
-
-Showcase recording:
-
-- [showcase-recording.mov](./demo/captures/showcase-recording.mov)
-- `https://github.com/bitifirefly/reflect-glass-button/raw/main/demo/captures/showcase-recording.mov`
-
 ## Structure
 
 ```text
@@ -37,7 +30,6 @@ reflect-glass-button/
 │   │   ├── showcase-capture-1.png
 │   │   ├── showcase-capture-2.png
 │   │   ├── showcase-capture-3.png
-│   │   └── showcase-recording.mov
 │   ├── demo.css
 │   ├── index.html
 │   ├── motion-shot.css
