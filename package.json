@@ -15,6 +15,7 @@
   "homepage": "https://github.com/bitifirefly/reflect-glass-button#readme",
   "scripts": {
     "generate:assets": "node ./scripts/generate-reflect-glass-assets.mjs",
+    "verify:consistency": "node ./scripts/verify-demo-consistency.mjs",
     "dev": "node ./scripts/serve.mjs",
     "start": "node ./scripts/serve.mjs"
   },

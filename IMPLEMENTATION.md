@@ -131,16 +131,20 @@ This has two benefits:
 ## 6. Integration Contract
 
 To integrate the effect elsewhere while keeping the same construction method,
-you need five pieces:
+you need six pieces:
 
 1. Optical assets
    - Generate `displacement-map.png` and `specular-map.png` for the target
      shape
 
-2. Inline SVG filter
+2. Prepaint browser detection
+   - Load `src/reflect-glass-prepaint.js` before the stylesheet so Chromium
+     gets the refraction path on the first paint
+
+3. Inline SVG filter
    - Use `feImage` to read those generated assets
 
-3. Markup
+4. Markup
 
 ```html
 <div class="reflect-glass-anchor" aria-hidden="true"></div>
@@ -152,21 +156,22 @@ you need five pieces:
 </button>
 ```
 
-4. Core stylesheet
+5. Core stylesheet
 
 - `src/reflect-glass-button.css`
 
-5. Core runtime
+6. Core runtime
 
 - `src/reflect-glass-button.js`
 
 This split matters: the effect is not just one class. It is:
 
 1. generated optical assets
-2. a filter wired to those assets
-3. layered button markup
-4. reusable CSS variables
-5. drag/runtime behavior
+2. prepaint browser detection
+3. a filter wired to those assets
+4. layered button markup
+5. reusable CSS variables
+6. drag/runtime behavior
 
 ## 7. Shape Changes Require New Assets
 

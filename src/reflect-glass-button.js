@@ -6,6 +6,13 @@
   }
 
   function detectBrowserEngine(doc) {
+    if (
+      global.ReflectGlassPrepaint &&
+      typeof global.ReflectGlassPrepaint.detectBrowserEngine === "function"
+    ) {
+      return global.ReflectGlassPrepaint.detectBrowserEngine(doc);
+    }
+
     var documentRef = doc || document;
     var root = documentRef.documentElement;
     var brands = navigator.userAgentData && Array.isArray(navigator.userAgentData.brands)
@@ -24,6 +31,7 @@
     var engine = brandMatch || uaMatch ? "chromium" : "default";
     root.dataset.browserEngine = engine;
     root.classList.toggle("browser-chromium", engine === "chromium");
+    return engine;
   }
 
   function attach(target, options) {

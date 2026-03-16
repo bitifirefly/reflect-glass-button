@@ -98,11 +98,12 @@ npm run generate:assets -- --preset hero-pill
 ## Reuse In Another Project
 
 1. Generate optical assets for the exact button shape you want.
-2. Copy `src/reflect-glass-button.css`.
-3. Copy `src/reflect-glass-button.js`.
-4. Register an inline SVG filter that points at the generated
+2. Copy `src/reflect-glass-prepaint.js`.
+3. Copy `src/reflect-glass-button.css`.
+4. Copy `src/reflect-glass-button.js`.
+5. Register an inline SVG filter that points at the generated
    `displacement-map.png` and `specular-map.png`.
-5. Add this markup:
+6. Add this markup:
 
 ```html
 <div class="reflect-glass-anchor" aria-hidden="true"></div>
@@ -114,7 +115,7 @@ npm run generate:assets -- --preset hero-pill
 </button>
 ```
 
-6. Set size, radius, and filter variables for your preset.
+7. Set size, radius, and filter variables for your preset.
 
 ```css
 .hero-glass-button {
@@ -135,14 +136,22 @@ npm run generate:assets -- --preset hero-pill
 }
 ```
 
-7. Load the CSS and JS files.
-8. Call:
+8. Load the prepaint script before the stylesheet if you want the first paint
+   to match the demo exactly, then load the runtime and call `init()`.
 
 ```html
+<script src="./reflect-glass-prepaint.js"></script>
+<link rel="stylesheet" href="./reflect-glass-button.css" />
+
+<script src="./reflect-glass-button.js"></script>
 <script>
   window.ReflectGlassButton.init();
 </script>
 ```
+
+`init()` also runs browser detection, but the shared prepaint script avoids a
+first-frame mismatch between the fallback glass and the Chromium refraction
+path.
 
 If the button dimensions or corner radius change materially, generate a new
 preset. CSS-only resizing is not the same pipeline and will soften or mismatch
