@@ -19,27 +19,9 @@ Animated drag preview with a textless pure glass button:
 
 ![Reflect Glass Button motion](./demo/readme-motion.gif)
 
-## Additional Captures
-
-Still captures from the live showcase composition:
-
-<p align="center">
-  <img src="./demo/captures/showcase-capture-1.png" width="32%" alt="Reflect Glass Button showcase capture 1" />
-  <img src="./demo/captures/showcase-capture-2.png" width="32%" alt="Reflect Glass Button showcase capture 2" />
-  <img src="./demo/captures/showcase-capture-3.png" width="32%" alt="Reflect Glass Button showcase capture 3" />
-</p>
-
 ## Recording
 
 Showcase recording:
-
-<p align="center">
-  <a href="./demo/captures/showcase-recording.mov">
-    <img src="./demo/captures/showcase-capture-1.png" width="72%" alt="Reflect Glass Button showcase recording poster" />
-  </a>
-</p>
-
-Open the source file directly:
 
 - [showcase-recording.mov](./demo/captures/showcase-recording.mov)
 - `https://github.com/bitifirefly/reflect-glass-button/raw/main/demo/captures/showcase-recording.mov`
@@ -54,9 +36,6 @@ reflect-glass-button/
 │   └── motion-pill/
 ├── demo/
 │   ├── captures/
-│   │   ├── showcase-capture-1.png
-│   │   ├── showcase-capture-2.png
-│   │   ├── showcase-capture-3.png
 │   │   └── showcase-recording.mov
 │   ├── demo.css
 │   ├── index.html
