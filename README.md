@@ -33,10 +33,16 @@ Still captures from the live showcase composition:
 
 Showcase recording:
 
-<video src="./demo/captures/showcase-recording.mov" controls muted playsinline width="960"></video>
+<p align="center">
+  <a href="./demo/captures/showcase-recording.mov">
+    <img src="./demo/captures/showcase-capture-1.png" width="72%" alt="Reflect Glass Button showcase recording poster" />
+  </a>
+</p>
 
-If your GitHub client does not render the embedded player, open the source file
-directly: [showcase-recording.mov](./demo/captures/showcase-recording.mov)
+Open the source file directly:
+
+- [showcase-recording.mov](./demo/captures/showcase-recording.mov)
+- `https://github.com/bitifirefly/reflect-glass-button/raw/main/demo/captures/showcase-recording.mov`
 
 ## Structure
 
