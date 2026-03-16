@@ -281,27 +281,26 @@ h1 {
 }
 
 .motion-glass-button {
-  min-width: 320px;
-  min-height: 120px;
-  padding: 0;
-  border-radius: 38px;
+  --reflect-glass-min-width: 320px;
+  --reflect-glass-min-height: 120px;
+  --reflect-glass-padding: 0;
+  --reflect-glass-radius: 38px;
+  --reflect-glass-inner-radius: 37px;
+  --reflect-glass-highlight-top: 10px;
+  --reflect-glass-highlight-height: 24px;
+  --reflect-glass-highlight-margin: 22px;
+  --reflect-glass-glow-side: 28px;
+  --reflect-glass-glow-bottom: 14px;
+  --reflect-glass-glow-height: 18px;
+  --reflect-glass-filter: url("#reflectGlassMotion");
+  --reflect-glass-chromium-highlight-top: 10px;
+  --reflect-glass-chromium-highlight-height: 16px;
+  --reflect-glass-chromium-highlight-margin: 24px;
+  --reflect-glass-chromium-glow-side: 30px;
+  --reflect-glass-chromium-glow-bottom: 11px;
+  --reflect-glass-chromium-glow-height: 14px;
 }
 
 .motion-glass-button .reflect-glass-label {
   display: none;
-}
-
-.motion-glass-button .reflect-glass-ornament {
-  border-radius: 37px;
-}
-
-.motion-glass-button::before {
-  top: 10px;
-  height: 24px;
-  margin: 0 22px;
-}
-
-.motion-glass-button::after {
-  inset: auto 28px 14px;
-  height: 18px;
 }

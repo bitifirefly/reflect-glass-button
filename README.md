@@ -1,7 +1,8 @@
 # Reflect Glass Button
 
-A standalone, framework-free reflect glass button example with drag support,
-backdrop sampling, and optional Chromium-only SVG refraction.
+A standalone, framework-free reflect glass button example built around a
+shape-specific optical asset pipeline: generated displacement/specular maps,
+an inline SVG filter, layered CSS materials, and drag support.
 
 This package is self-contained and does not include any application-specific
 logic or branding.
@@ -22,10 +23,23 @@ Animated drag preview with a textless pure glass button:
 
 ```text
 reflect-glass-button/
+├── assets/
+│   ├── default-pill/
+│   ├── hero-pill/
+│   └── motion-pill/
 ├── demo/
 │   ├── demo.css
-│   └── index.html
+│   ├── index.html
+│   ├── motion-shot.css
+│   ├── motion-shot.html
+│   ├── readme-motion.gif
+│   ├── readme-preview.png
+│   ├── readme-shot.css
+│   ├── readme-shot.html
+│   ├── showcase.css
+│   └── showcase.html
 ├── scripts/
+│   ├── generate-reflect-glass-assets.mjs
 │   └── serve.mjs
 ├── src/
 │   ├── reflect-glass-button.css
@@ -39,15 +53,18 @@ reflect-glass-button/
 ## Features
 
 - Plain HTML, CSS, and JavaScript
+- Shape-matched displacement/specular PNG assets generated inside the repo
+- Chromium-only SVG refraction path that consumes those generated assets
 - Draggable button with Pointer Events
-- Glass effect built from layered gradients and `backdrop-filter`
-- Optional stronger refraction in Chromium via SVG displacement filter
-- No external assets or runtime dependencies
+- Glass effect built from layered gradients, inner highlights, and `backdrop-filter`
+- Same core runtime reused across live demo, README screenshot, and motion capture
+- No external artwork or runtime dependencies
 
 ## Quick Start
 
 ```bash
 cd reflect-glass-button
+npm run generate:assets
 npm run dev
 ```
 
@@ -57,13 +74,27 @@ Open:
 http://127.0.0.1:4173
 ```
 
+Additional demo pages:
+
+- `http://127.0.0.1:4173/demo/`
+- `http://127.0.0.1:4173/demo/showcase.html`
+- `http://127.0.0.1:4173/demo/readme-shot.html`
+- `http://127.0.0.1:4173/demo/motion-shot.html`
+
+Generate a single preset:
+
+```bash
+npm run generate:assets -- --preset hero-pill
+```
+
 ## Reuse In Another Project
 
-1. Copy `src/reflect-glass-button.css`
-2. Copy `src/reflect-glass-button.js`
-3. Copy the SVG filter block from `demo/index.html` if you want Chromium
-   displacement refraction
-4. Add this markup:
+1. Generate optical assets for the exact button shape you want.
+2. Copy `src/reflect-glass-button.css`.
+3. Copy `src/reflect-glass-button.js`.
+4. Register an inline SVG filter that points at the generated
+   `displacement-map.png` and `specular-map.png`.
+5. Add this markup:
 
 ```html
 <div class="reflect-glass-anchor" aria-hidden="true"></div>
@@ -75,14 +106,39 @@ http://127.0.0.1:4173
 </a>
 ```
 
-5. Load the CSS and JS files
-6. Call:
+6. Set size, radius, and filter variables for your preset.
+
+```css
+.hero-glass-button {
+  --reflect-glass-min-width: 430px;
+  --reflect-glass-min-height: 128px;
+  --reflect-glass-padding: 0 42px;
+  --reflect-glass-radius: 38px;
+  --reflect-glass-inner-radius: 37px;
+  --reflect-glass-highlight-top: 10px;
+  --reflect-glass-highlight-height: 24px;
+  --reflect-glass-highlight-margin: 24px;
+  --reflect-glass-glow-side: 30px;
+  --reflect-glass-glow-bottom: 15px;
+  --reflect-glass-glow-height: 18px;
+  --reflect-glass-label-size: 1.8rem;
+  --reflect-glass-label-letter-spacing: -0.02em;
+  --reflect-glass-filter: url("#reflectGlassHero");
+}
+```
+
+7. Load the CSS and JS files.
+8. Call:
 
 ```html
 <script>
   window.ReflectGlassButton.init();
 </script>
 ```
+
+If the button dimensions or corner radius change materially, generate a new
+preset. CSS-only resizing is not the same pipeline and will soften or mismatch
+the refraction.
 
 ## API
 
@@ -102,8 +158,8 @@ Supported options:
 
 ## Browser Behavior
 
-- Chromium-based browsers use `backdrop-filter: url(#reflectGlass)` for stronger
-  refraction.
+- Chromium-based browsers use `backdrop-filter: url(#reflectGlass...)` plus the
+  generated optical maps for stronger refraction.
 - Other browsers fall back to a simpler frosted-glass treatment.
 - Browsers without `backdrop-filter` support get a static translucent fallback.
 
@@ -111,9 +167,10 @@ Supported options:
 
 See [IMPLEMENTATION.md](./IMPLEMENTATION.md) for a breakdown of:
 
+- optical asset generation
+- SVG filter wiring
 - visual layers
 - drag behavior
-- SVG refraction filter
 - extraction guidance
 
 ## License

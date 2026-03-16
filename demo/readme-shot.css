@@ -401,28 +401,24 @@ h2 {
 }
 
 .readme-hero-button {
-  min-width: 430px;
-  min-height: 128px;
-  padding: 0 42px;
-  border-radius: 38px;
-}
-
-.readme-hero-button .reflect-glass-ornament {
-  border-radius: 37px;
-}
-
-.readme-hero-button .reflect-glass-label {
-  font-size: 1.8rem;
-  letter-spacing: -0.02em;
-}
-
-.readme-hero-button::before {
-  top: 10px;
-  height: 24px;
-  margin: 0 24px;
-}
-
-.readme-hero-button::after {
-  inset: auto 30px 15px;
-  height: 18px;
+  --reflect-glass-min-width: 430px;
+  --reflect-glass-min-height: 128px;
+  --reflect-glass-padding: 0 42px;
+  --reflect-glass-radius: 38px;
+  --reflect-glass-inner-radius: 37px;
+  --reflect-glass-highlight-top: 10px;
+  --reflect-glass-highlight-height: 24px;
+  --reflect-glass-highlight-margin: 24px;
+  --reflect-glass-glow-side: 30px;
+  --reflect-glass-glow-bottom: 15px;
+  --reflect-glass-glow-height: 18px;
+  --reflect-glass-label-size: 1.8rem;
+  --reflect-glass-label-letter-spacing: -0.02em;
+  --reflect-glass-filter: url("#reflectGlassHero");
+  --reflect-glass-chromium-highlight-top: 10px;
+  --reflect-glass-chromium-highlight-height: 16px;
+  --reflect-glass-chromium-highlight-margin: 28px;
+  --reflect-glass-chromium-glow-side: 34px;
+  --reflect-glass-chromium-glow-bottom: 12px;
+  --reflect-glass-chromium-glow-height: 14px;
 }

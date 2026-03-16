@@ -5,19 +5,45 @@
 }
 
 .reflect-glass-button {
+  --reflect-glass-width: auto;
+  --reflect-glass-height: auto;
+  --reflect-glass-min-width: 196px;
+  --reflect-glass-min-height: 56px;
+  --reflect-glass-padding: 0 22px;
+  --reflect-glass-radius: 22px;
+  --reflect-glass-inner-radius: 21px;
+  --reflect-glass-highlight-top: 6px;
+  --reflect-glass-highlight-height: 16px;
+  --reflect-glass-highlight-margin: 12px;
+  --reflect-glass-glow-side: 16px;
+  --reflect-glass-glow-bottom: 10px;
+  --reflect-glass-glow-height: 10px;
+  --reflect-glass-label-size: 0.98rem;
+  --reflect-glass-label-line-height: 1.2;
+  --reflect-glass-label-letter-spacing: 0.01em;
+  --reflect-glass-label-max-width: none;
+  --reflect-glass-filter: url("#reflectGlass");
+  --reflect-glass-chromium-highlight-top: 7px;
+  --reflect-glass-chromium-highlight-height: 10px;
+  --reflect-glass-chromium-highlight-margin: 16px;
+  --reflect-glass-chromium-glow-side: 18px;
+  --reflect-glass-chromium-glow-bottom: 8px;
+  --reflect-glass-chromium-glow-height: 8px;
   --drag-x: 0px;
   --drag-y: 0px;
   position: fixed;
   left: 0;
   top: 0;
   z-index: 40;
-  min-width: 196px;
-  min-height: 56px;
-  padding: 0 22px;
+  width: var(--reflect-glass-width);
+  height: var(--reflect-glass-height);
+  min-width: var(--reflect-glass-min-width);
+  min-height: var(--reflect-glass-min-height);
+  padding: var(--reflect-glass-padding);
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  border-radius: 22px;
+  border-radius: var(--reflect-glass-radius);
   border: 1px solid transparent;
   background: transparent;
   color: #0f5ea8;
@@ -78,7 +104,7 @@
 .reflect-glass-ornament {
   z-index: 1;
   inset: 1px;
-  border-radius: 21px;
+  border-radius: var(--reflect-glass-inner-radius);
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.02) 48%, rgba(196, 221, 247, 0.04) 100%);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.32),
@@ -95,9 +121,9 @@
 }
 
 .reflect-glass-button::before {
-  top: 6px;
-  height: 16px;
-  margin: 0 12px;
+  top: var(--reflect-glass-highlight-top);
+  height: var(--reflect-glass-highlight-height);
+  margin: 0 var(--reflect-glass-highlight-margin);
   z-index: 2;
   border-radius: 999px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.22) 82%, transparent 100%);
@@ -105,8 +131,8 @@
 }
 
 .reflect-glass-button::after {
-  inset: auto 16px 10px;
-  height: 10px;
+  inset: auto var(--reflect-glass-glow-side) var(--reflect-glass-glow-bottom);
+  height: var(--reflect-glass-glow-height);
   z-index: 1;
   border-radius: 999px;
   background: radial-gradient(circle at center, rgba(126, 180, 240, 0.12) 0%, rgba(126, 180, 240, 0.04) 56%, transparent 100%);
@@ -117,9 +143,13 @@
 .reflect-glass-label {
   position: relative;
   z-index: 3;
-  font-size: 0.98rem;
+  max-width: var(--reflect-glass-label-max-width);
+  font-size: var(--reflect-glass-label-size);
   font-weight: 700;
-  letter-spacing: 0.01em;
+  line-height: var(--reflect-glass-label-line-height);
+  letter-spacing: var(--reflect-glass-label-letter-spacing);
+  text-align: center;
+  white-space: pre-line;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
@@ -134,11 +164,12 @@ html[data-browser-engine="chromium"] .reflect-glass-surface {
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  backdrop-filter: url("#reflectGlass");
-  -webkit-backdrop-filter: url("#reflectGlass");
+  backdrop-filter: var(--reflect-glass-filter) blur(12px) saturate(145%);
+  -webkit-backdrop-filter: var(--reflect-glass-filter) blur(12px) saturate(145%);
 }
 
 html[data-browser-engine="chromium"] .reflect-glass-ornament {
+  border-radius: var(--reflect-glass-inner-radius);
   background:
     radial-gradient(88% 46% at 50% 0%, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.12) 32%, transparent 56%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(248, 251, 255, 0.02) 58%, rgba(212, 229, 247, 0.03) 100%);
@@ -150,15 +181,15 @@ html[data-browser-engine="chromium"] .reflect-glass-ornament {
 }
 
 html[data-browser-engine="chromium"] .reflect-glass-button::before {
-  top: 7px;
-  height: 10px;
-  margin: 0 16px;
+  top: var(--reflect-glass-chromium-highlight-top);
+  height: var(--reflect-glass-chromium-highlight-height);
+  margin: 0 var(--reflect-glass-chromium-highlight-margin);
   opacity: 0.4;
 }
 
 html[data-browser-engine="chromium"] .reflect-glass-button::after {
-  inset: auto 18px 8px;
-  height: 8px;
+  inset: auto var(--reflect-glass-chromium-glow-side) var(--reflect-glass-chromium-glow-bottom);
+  height: var(--reflect-glass-chromium-glow-height);
   opacity: 0.24;
 }
 

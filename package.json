@@ -1,7 +1,7 @@
 {
   "name": "reflect-glass-button",
   "version": "0.1.0",
-  "description": "Standalone reflect glass button example with drag support and SVG-enhanced distortion.",
+  "description": "Standalone reflect glass button example with generated optical maps, drag support, and SVG-enhanced refraction.",
   "license": "MIT",
   "type": "module",
   "private": false,
@@ -14,6 +14,7 @@
   },
   "homepage": "https://github.com/bitifirefly/reflect-glass-button#readme",
   "scripts": {
+    "generate:assets": "node ./scripts/generate-reflect-glass-assets.mjs",
     "dev": "node ./scripts/serve.mjs",
     "start": "node ./scripts/serve.mjs"
   },
