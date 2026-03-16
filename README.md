@@ -6,6 +6,10 @@ backdrop sampling, and optional Chromium-only SVG refraction.
 This package is self-contained and does not include any application-specific
 logic or branding.
 
+## Preview
+
+![Reflect Glass Button preview](./demo/readme-preview.png)
+
 ## Structure
 
 ```text

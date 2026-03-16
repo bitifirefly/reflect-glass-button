@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Reflect Glass Button Showcase</title>
+    <link rel="stylesheet" href="../src/reflect-glass-button.css" />
+    <link rel="stylesheet" href="./showcase.css" />
+  </head>
+  <body>
+    <svg
+      aria-hidden="true"
+      width="0"
+      height="0"
+      style="position: absolute; pointer-events: none"
+    >
+      <defs>
+        <filter id="reflectGlass" color-interpolation-filters="sRGB">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="0.8" result="blurredSource" />
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.018 0.12"
+            numOctaves="1"
+            seed="7"
+            result="noise"
+          />
+          <feColorMatrix
+            in="noise"
+            type="matrix"
+            values="
+              1 0 0 0 0
+              0 1 0 0 0
+              0 0 0 0 0
+              0 0 0 1 0
+            "
+            result="displacementMap"
+          />
+          <feDisplacementMap
+            in="blurredSource"
+            in2="displacementMap"
+            scale="26"
+            xChannelSelector="R"
+            yChannelSelector="G"
+            result="displaced"
+          />
+          <feColorMatrix
+            in="displaced"
+            type="saturate"
+            values="3.2"
+            result="boosted"
+          />
+          <feBlend in="boosted" in2="displaced" mode="screen" />
+        </filter>
+      </defs>
+    </svg>
+
+    <div class="page-noise" aria-hidden="true"></div>
+    <div class="page-haze" aria-hidden="true"></div>
+
+    <main class="showcase-shell">
+      <aside class="side-rail">
+        <div class="brand-mark">
+          <span class="brand-orb"></span>
+          <span>Canvas North</span>
+        </div>
+        <nav class="rail-nav" aria-label="Primary">
+          <a href="#overview">Overview</a>
+          <a href="#features">Features</a>
+          <a href="#stories">Stories</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </aside>
+
+      <section class="content-grid">
+        <article class="hero-card panel-surface" id="overview">
+          <div class="hero-copy">
+            <p class="eyebrow">Synthetic Product Page</p>
+            <h1>Reflect Glass Button on a layered editorial interface.</h1>
+            <p class="hero-text">
+              This page is generated entirely from local HTML, CSS, and inline
+              SVG. It mixes text, charts, image-like illustration blocks, and
+              color fields so the glass treatment has varied material to distort.
+            </p>
+
+            <div class="hero-metrics">
+              <div class="metric-card">
+                <span class="metric-value">08</span>
+                <span class="metric-label">layout zones</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-value">100%</span>
+                <span class="metric-label">local assets</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-value">SVG</span>
+                <span class="metric-label">distortion path</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-visual">
+            <div class="illustration-frame">
+              <svg viewBox="0 0 520 360" role="img" aria-label="Abstract landscape illustration">
+                <defs>
+                  <linearGradient id="skyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#dff6ff" />
+                    <stop offset="55%" stop-color="#bfe4ff" />
+                    <stop offset="100%" stop-color="#7ac7f3" />
+                  </linearGradient>
+                  <linearGradient id="lakeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#86dbff" />
+                    <stop offset="50%" stop-color="#63baf2" />
+                    <stop offset="100%" stop-color="#2e78c8" />
+                  </linearGradient>
+                  <linearGradient id="hillGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#294b69" />
+                    <stop offset="100%" stop-color="#15283a" />
+                  </linearGradient>
+                </defs>
+                <rect width="520" height="360" rx="28" fill="url(#skyGradient)" />
+                <circle cx="403" cy="78" r="42" fill="#fef7cf" fill-opacity="0.9" />
+                <path
+                  d="M0 202 C90 170 140 216 223 190 C304 166 356 119 520 150 L520 360 L0 360 Z"
+                  fill="url(#lakeGradient)"
+                />
+                <path
+                  d="M0 208 C77 161 119 177 210 143 C298 110 366 98 520 118 L520 360 L0 360 Z"
+                  fill="#5ab6df"
+                  fill-opacity="0.28"
+                />
+                <path
+                  d="M0 242 C96 158 177 156 270 211 C338 250 421 262 520 212 L520 360 L0 360 Z"
+                  fill="url(#hillGradient)"
+                />
+                <path
+                  d="M0 266 C59 226 117 214 177 229 C230 242 278 278 324 278 C374 278 424 252 520 215 L520 360 L0 360 Z"
+                  fill="#1b3249"
+                  fill-opacity="0.82"
+                />
+                <path
+                  d="M92 95 C132 58 189 78 207 118 C224 156 193 193 158 197 C121 201 86 166 85 126 Z"
+                  fill="#ffffff"
+                  fill-opacity="0.36"
+                />
+                <path
+                  d="M148 226 C177 207 224 214 252 247 C274 272 316 284 355 278"
+                  stroke="#ffffff"
+                  stroke-width="6"
+                  stroke-linecap="round"
+                  fill="none"
+                  opacity="0.34"
+                />
+              </svg>
+            </div>
+
+            <div class="visual-caption">
+              <span>Image-like panel</span>
+              <span>built from inline SVG only</span>
+            </div>
+
+            <div class="reflect-glass-anchor hero-anchor" aria-hidden="true"></div>
+          </div>
+        </article>
+
+        <section class="story-card panel-surface" id="features">
+          <header class="section-head">
+            <div>
+              <p class="eyebrow">Story Blocks</p>
+              <h2>Text layers, color tiles, and denser contrast.</h2>
+            </div>
+            <span class="status-pill">Live Preview</span>
+          </header>
+
+          <div class="story-grid">
+            <article class="story-panel story-panel-a">
+              <h3>Feature writing</h3>
+              <p>
+                Short editorial paragraphs create readable distortion around the
+                button edge and highlight where the blur remains legible.
+              </p>
+            </article>
+            <article class="story-panel story-panel-b">
+              <h3>Color contrast</h3>
+              <p>
+                Saturated gradients and fine border lines make it easier to see
+                refraction instead of plain transparency.
+              </p>
+            </article>
+            <article class="story-panel story-panel-c">
+              <h3>Structured rhythm</h3>
+              <ul>
+                <li>Hero copy</li>
+                <li>Illustration block</li>
+                <li>Editorial notes</li>
+                <li>Interface chrome</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="notes-card panel-surface" id="stories">
+          <div class="notes-head">
+            <p class="eyebrow">Field Notes</p>
+            <h2>Reusable across showcases and docs.</h2>
+          </div>
+
+          <div class="notes-list">
+            <article class="note-item">
+              <span class="note-index">01</span>
+              <div>
+                <h3>Button stays draggable</h3>
+                <p>
+                  The screenshot uses the same runtime and styling as the live
+                  demo, so the preview remains representative.
+                </p>
+              </div>
+            </article>
+            <article class="note-item">
+              <span class="note-index">02</span>
+              <div>
+                <h3>No third-party imagery</h3>
+                <p>
+                  All background shapes, text content, and illustration elements
+                  are generated directly in the repo.
+                </p>
+              </div>
+            </article>
+            <article class="note-item">
+              <span class="note-index">03</span>
+              <div>
+                <h3>Optimized for README screenshots</h3>
+                <p>
+                  The composition is wide, bright, and textural enough for GitHub
+                  preview images.
+                </p>
+              </div>
+            </article>
+          </div>
+        </section>
+      </section>
+
+      <a
+        class="reflect-glass-button"
+        data-reflect-glass
+        href="https://example.com"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Open showcase"
+      >
+        <span class="reflect-glass-surface" aria-hidden="true"></span>
+        <span class="reflect-glass-ornament" aria-hidden="true"></span>
+        <span class="reflect-glass-label">Open View</span>
+      </a>
+    </main>
+
+    <script src="../src/reflect-glass-button.js"></script>
+    <script>
+      window.ReflectGlassButton.init();
+    </script>
+  </body>
+</html>
