@@ -166,8 +166,8 @@ Supported options:
 
 ## Browser Behavior
 
-- Chromium-based browsers use `backdrop-filter: url(#reflectGlass...)` plus the
-  generated optical maps for stronger refraction.
+- Chromium-based browsers use the generated SVG filter directly through
+  `backdrop-filter: url(#reflectGlass...)` for stronger refraction.
 - Other browsers fall back to a simpler frosted-glass treatment.
 - Browsers without `backdrop-filter` support get a static translucent fallback.
 

@@ -52,8 +52,8 @@ This is why the repo keeps preset-specific filters in the demo pages:
 - `reflectGlassHero` for the large README close-up pill
 - `reflectGlassMotion` for the motion capture pill
 
-Browsers outside the Chromium path still use the same DOM and CSS layers, just
-without the asset-backed filter stage.
+Browsers outside the Chromium path still use the same DOM and CSS layers, but
+fall back to the simpler frosted-glass treatment.
 
 ## 3. Layered DOM And CSS Material
 
@@ -67,8 +67,8 @@ The button itself is built from several stacked layers:
 
 2. Surface layer
    - Semi-transparent white gradient
-   - `backdrop-filter` blur and saturation
-   - In Chromium, also reads `var(--reflect-glass-filter)`
+   - `backdrop-filter` blur and saturation in the fallback path
+   - In Chromium, reads `var(--reflect-glass-filter)` directly
 
 3. Ornament layer
    - Inner translucent shell

@@ -7,6 +7,7 @@
 
   function detectBrowserEngine(doc) {
     var documentRef = doc || document;
+    var root = documentRef.documentElement;
     var brands = navigator.userAgentData && Array.isArray(navigator.userAgentData.brands)
       ? navigator.userAgentData.brands
       : [];
@@ -20,8 +21,9 @@
       /\b(?:Chromium|Chrome|Edg|OPR|SamsungBrowser)\//.test(ua) &&
       !/\b(?:Firefox|FxiOS)\//.test(ua);
 
-    documentRef.documentElement.dataset.browserEngine =
-      brandMatch || uaMatch ? "chromium" : "default";
+    var engine = brandMatch || uaMatch ? "chromium" : "default";
+    root.dataset.browserEngine = engine;
+    root.classList.toggle("browser-chromium", engine === "chromium");
   }
 
   function attach(target, options) {
