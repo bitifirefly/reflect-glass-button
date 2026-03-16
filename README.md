@@ -19,6 +19,25 @@ Animated drag preview with a textless pure glass button:
 
 ![Reflect Glass Button motion](./demo/readme-motion.gif)
 
+## Additional Captures
+
+Still captures from the live showcase composition:
+
+<p align="center">
+  <img src="./demo/captures/showcase-capture-1.png" width="32%" alt="Reflect Glass Button showcase capture 1" />
+  <img src="./demo/captures/showcase-capture-2.png" width="32%" alt="Reflect Glass Button showcase capture 2" />
+  <img src="./demo/captures/showcase-capture-3.png" width="32%" alt="Reflect Glass Button showcase capture 3" />
+</p>
+
+## Recording
+
+Showcase recording:
+
+<video src="./demo/captures/showcase-recording.mov" controls muted playsinline width="960"></video>
+
+If your GitHub client does not render the embedded player, open the source file
+directly: [showcase-recording.mov](./demo/captures/showcase-recording.mov)
+
 ## Structure
 
 ```text
@@ -28,6 +47,11 @@ reflect-glass-button/
 │   ├── hero-pill/
 │   └── motion-pill/
 ├── demo/
+│   ├── captures/
+│   │   ├── showcase-capture-1.png
+│   │   ├── showcase-capture-2.png
+│   │   ├── showcase-capture-3.png
+│   │   └── showcase-recording.mov
 │   ├── demo.css
 │   ├── index.html
 │   ├── motion-shot.css
