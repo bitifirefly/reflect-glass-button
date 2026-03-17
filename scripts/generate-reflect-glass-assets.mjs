@@ -188,72 +188,44 @@ function generateDisplacementMap(preset, outputDir) {
 function generateSpecularMap(preset, outputDir) {
   const sdf = makeSdf(preset.width, preset.height, preset.radius);
   const pixels = Buffer.alloc(preset.width * preset.height * 4);
-  const halfWidth = (preset.width - 1) / 2;
-  const halfHeight = (preset.height - 1) / 2;
-  const xEdgeInset = Math.max(18, Math.round(preset.width * 0.112));
-  const yTopInset = Math.max(6, Math.round(preset.height * 0.115));
-  const topLineSigma = Math.max(2.2, preset.height * 0.04);
-  const topArcSigma = Math.max(3.8, preset.height * 0.068);
-  const xGlowSigma = Math.max(60, preset.width * 0.306);
-  const glintXSigma = Math.max(8.5, preset.width * 0.043);
-  const glintYSigma = Math.max(4.8, preset.height * 0.086);
-  const edgeFadeDepth = Math.max(6.5, preset.radius * 0.3);
+  const lightAngle = -Math.PI / 3;
+  const lightDirX = Math.cos(lightAngle);
+  const lightDirY = Math.sin(lightAngle);
+  const rimWidth = Math.max(1.1, preset.rim * 0.08);
+  const innerFadeDepth = Math.max(5.5, preset.rim * 0.92);
+  const topSheenBand = Math.max(0.12, Math.min(0.22, preset.height / 560));
+  const topSheenSigma = Math.max(0.07, Math.min(0.12, preset.height / 980));
 
   for (let y = 0; y < preset.height; y += 1) {
     for (let x = 0; x < preset.width; x += 1) {
       const offset = (y * preset.width + x) * 4;
       const d = sdf(x + 0.5, y + 0.5);
-      const px = x - halfWidth;
-      const py = y - halfHeight;
-
-      const rim = gaussian(d, 0.95) * 0.88;
-      const topLine =
-        d <= 0 ? gaussian(py + halfHeight - yTopInset, topLineSigma) * 0.26 : 0;
-      const topArc =
+      const [nx, ny] = gradient(sdf, x + 0.5, y + 0.5);
+      const edgeMask = d <= 0 ? clamp(1 + d / innerFadeDepth, 0, 1) : 0;
+      const rim = gaussian(d, rimWidth);
+      const directional = Math.pow(clamp(nx * lightDirX + ny * lightDirY, 0, 1), 2.6);
+      const secondary = Math.pow(
+        clamp(nx * -lightDirX + ny * -lightDirY, 0, 1),
+        5,
+      ) * 0.12;
+      const topProgress = y / Math.max(1, preset.height - 1);
+      const topSheen =
         d <= 0
-          ? gaussian(py + halfHeight - (yTopInset + 1), topArcSigma) *
-            gaussian(px, xGlowSigma) *
-            0.24
+          ? gaussian(topProgress - topSheenBand, topSheenSigma) *
+            Math.pow(clamp(-ny, 0, 1), 1.45) *
+            0.16 *
+            edgeMask
           : 0;
-      const upperSheen =
-        d <= 0
-          ? smoothstep(
-              0.38,
-              0,
-              clamp((py + halfHeight - 3) / Math.max(11, preset.height * 0.2), 0, 1),
-            ) * 0.1
-          : 0;
-      const leftGlint =
-        d <= 0
-          ? gaussian(px + halfWidth - xEdgeInset, glintXSigma) *
-            gaussian(py + halfHeight - (yTopInset + 1), glintYSigma) *
-            0.18
-          : 0;
-      const rightGlint =
-        d <= 0
-          ? gaussian(px - halfWidth + xEdgeInset, glintXSigma) *
-            gaussian(py + halfHeight - (yTopInset + 1), glintYSigma * 1.08) *
-            0.14
-          : 0;
-      const edgeFade = d <= 0 ? clamp(1 + d / edgeFadeDepth, 0, 1) : 0;
 
       const intensity = clamp(
-        rim * (0.72 + upperSheen * 0.9) +
-          topLine +
-          topArc +
-          upperSheen +
-          leftGlint +
-          rightGlint,
+        rim * (0.18 + directional * 1.08 + secondary * 0.3) +
+          edgeMask * (directional * 0.18 + topSheen),
         0,
         1,
       );
       const alpha = clamp(
-        rim * 0.95 +
-          topLine * 0.72 +
-          topArc * 0.76 +
-          upperSheen * edgeFade +
-          leftGlint +
-          rightGlint,
+        rim * (0.18 + directional * 0.94 + secondary * 0.16) +
+          edgeMask * (directional * 0.1 + topSheen * 0.72),
         0,
         1,
       );

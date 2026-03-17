@@ -15,6 +15,18 @@
   --reflect-glass-highlight-top: 6px;
   --reflect-glass-highlight-height: 16px;
   --reflect-glass-highlight-margin: 12px;
+  --reflect-glass-highlight-radius: 999px;
+  --reflect-glass-highlight-opacity: 0.54;
+  --reflect-glass-highlight-background:
+    radial-gradient(
+      140% 170% at 50% 0%,
+      rgba(255, 255, 255, 0.96) 0%,
+      rgba(255, 255, 255, 0.72) 18%,
+      rgba(255, 255, 255, 0.18) 56%,
+      transparent 84%
+    );
+  --reflect-glass-highlight-mask:
+    linear-gradient(180deg, black 0%, black 68%, transparent 100%);
   --reflect-glass-glow-side: 16px;
   --reflect-glass-glow-bottom: 10px;
   --reflect-glass-glow-height: 10px;
@@ -26,6 +38,18 @@
   --reflect-glass-chromium-highlight-top: 7px;
   --reflect-glass-chromium-highlight-height: 10px;
   --reflect-glass-chromium-highlight-margin: 16px;
+  --reflect-glass-chromium-highlight-radius: 999px;
+  --reflect-glass-chromium-highlight-opacity: 0.6;
+  --reflect-glass-chromium-highlight-background:
+    radial-gradient(
+      144% 176% at 50% 0%,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0.82) 18%,
+      rgba(255, 255, 255, 0.24) 56%,
+      transparent 84%
+    );
+  --reflect-glass-chromium-highlight-mask:
+    linear-gradient(180deg, black 0%, black 72%, transparent 100%);
   --reflect-glass-chromium-glow-side: 18px;
   --reflect-glass-chromium-glow-bottom: 8px;
   --reflect-glass-chromium-glow-height: 8px;
@@ -128,9 +152,11 @@
   height: var(--reflect-glass-highlight-height);
   margin: 0 var(--reflect-glass-highlight-margin);
   z-index: 2;
-  border-radius: 999px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.22) 82%, transparent 100%);
-  opacity: 0.7;
+  border-radius: var(--reflect-glass-highlight-radius);
+  background: var(--reflect-glass-highlight-background);
+  opacity: var(--reflect-glass-highlight-opacity);
+  -webkit-mask-image: var(--reflect-glass-highlight-mask);
+  mask-image: var(--reflect-glass-highlight-mask);
 }
 
 .reflect-glass-button::after {
@@ -187,7 +213,11 @@ html[data-browser-engine="chromium"] .reflect-glass-button::before {
   top: var(--reflect-glass-chromium-highlight-top);
   height: var(--reflect-glass-chromium-highlight-height);
   margin: 0 var(--reflect-glass-chromium-highlight-margin);
-  opacity: 0.4;
+  border-radius: var(--reflect-glass-chromium-highlight-radius);
+  background: var(--reflect-glass-chromium-highlight-background);
+  opacity: var(--reflect-glass-chromium-highlight-opacity);
+  -webkit-mask-image: var(--reflect-glass-chromium-highlight-mask);
+  mask-image: var(--reflect-glass-chromium-highlight-mask);
 }
 
 html[data-browser-engine="chromium"] .reflect-glass-button::after {

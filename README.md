@@ -175,6 +175,14 @@ That will create `assets/campus-circle/` with:
 }
 ```
 
+For non-pill shapes, also tune the shape-specific highlight layer instead of
+reusing the default capsule sheen:
+
+- `--reflect-glass-highlight-background`
+- `--reflect-glass-highlight-mask`
+- `--reflect-glass-chromium-highlight-background`
+- `--reflect-glass-chromium-highlight-mask`
+
 8. Load the prepaint script before the stylesheet if you want the first paint
    to match the demo exactly, then load the runtime and call `init()`.
 

@@ -119,6 +119,15 @@ Preset pages only override variables such as:
 - `--reflect-glass-filter`
 - highlight/glow tuning values
 
+When the silhouette changes materially, the highlight layer should change too.
+For example, circles and rounded squares should not reuse the same capsule-like
+top sheen. The core CSS exposes per-shape override hooks such as:
+
+- `--reflect-glass-highlight-background`
+- `--reflect-glass-highlight-mask`
+- `--reflect-glass-chromium-highlight-background`
+- `--reflect-glass-chromium-highlight-mask`
+
 ## 4. Drag Behavior
 
 Dragging is implemented with Pointer Events:
