@@ -2,6 +2,21 @@
   "name": "rounded-square-button",
   "width": 132,
   "height": 132,
-  "radius": 34,
-  "rim": 24
+  "radius": 38,
+  "rim": 24,
+  "specularLightAngle": -22,
+  "specularDirectionalPower": 3.1,
+  "specularDirectionalGain": 0.94,
+  "specularSecondaryPower": 5.4,
+  "specularSecondaryGain": 0.08,
+  "specularRimBase": 0.08,
+  "specularEdgeDirectionalGain": 0.1,
+  "specularAlphaDirectionalGain": 0.06,
+  "specularTopSheenStrength": 0.008,
+  "specularTopSheenBand": 0.08,
+  "specularTopSheenSigma": 0.06,
+  "specularAlphaTopSheenGain": 0.4,
+  "specularLateralBias": 1,
+  "specularLateralFloor": 0.2,
+  "specularLateralPower": 0.78
 }

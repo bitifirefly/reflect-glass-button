@@ -35,8 +35,23 @@ const DEFAULT_PRESETS = [
     name: "rounded-square-button",
     width: 132,
     height: 132,
-    radius: 34,
+    radius: 38,
     rim: 24,
+    specularLightAngle: -22,
+    specularDirectionalPower: 3.1,
+    specularDirectionalGain: 0.94,
+    specularSecondaryPower: 5.4,
+    specularSecondaryGain: 0.08,
+    specularRimBase: 0.08,
+    specularEdgeDirectionalGain: 0.1,
+    specularAlphaDirectionalGain: 0.06,
+    specularTopSheenStrength: 0.008,
+    specularTopSheenBand: 0.08,
+    specularTopSheenSigma: 0.06,
+    specularAlphaTopSheenGain: 0.4,
+    specularLateralBias: 1,
+    specularLateralFloor: 0.2,
+    specularLateralPower: 0.78,
   },
 ];
 
@@ -188,13 +203,29 @@ function generateDisplacementMap(preset, outputDir) {
 function generateSpecularMap(preset, outputDir) {
   const sdf = makeSdf(preset.width, preset.height, preset.radius);
   const pixels = Buffer.alloc(preset.width * preset.height * 4);
-  const lightAngle = -Math.PI / 3;
+  const lightAngle = ((preset.specularLightAngle ?? -60) * Math.PI) / 180;
   const lightDirX = Math.cos(lightAngle);
   const lightDirY = Math.sin(lightAngle);
   const rimWidth = Math.max(1.1, preset.rim * 0.08);
   const innerFadeDepth = Math.max(5.5, preset.rim * 0.92);
-  const topSheenBand = Math.max(0.12, Math.min(0.22, preset.height / 560));
-  const topSheenSigma = Math.max(0.07, Math.min(0.12, preset.height / 980));
+  const topSheenBand =
+    preset.specularTopSheenBand ??
+    Math.max(0.12, Math.min(0.22, preset.height / 560));
+  const topSheenSigma =
+    preset.specularTopSheenSigma ??
+    Math.max(0.07, Math.min(0.12, preset.height / 980));
+  const directionalPower = preset.specularDirectionalPower ?? 2.6;
+  const directionalGain = preset.specularDirectionalGain ?? 1.08;
+  const secondaryPower = preset.specularSecondaryPower ?? 5;
+  const secondaryGain = preset.specularSecondaryGain ?? 0.12;
+  const rimBase = preset.specularRimBase ?? 0.18;
+  const edgeDirectionalGain = preset.specularEdgeDirectionalGain ?? 0.18;
+  const alphaDirectionalGain = preset.specularAlphaDirectionalGain ?? 0.1;
+  const topSheenStrength = preset.specularTopSheenStrength ?? 0.16;
+  const alphaTopSheenGain = preset.specularAlphaTopSheenGain ?? 0.72;
+  const lateralBias = clamp(preset.specularLateralBias ?? 0, 0, 1);
+  const lateralFloor = preset.specularLateralFloor ?? 1;
+  const lateralPower = preset.specularLateralPower ?? 1;
 
   for (let y = 0; y < preset.height; y += 1) {
     for (let x = 0; x < preset.width; x += 1) {
@@ -203,32 +234,43 @@ function generateSpecularMap(preset, outputDir) {
       const [nx, ny] = gradient(sdf, x + 0.5, y + 0.5);
       const edgeMask = d <= 0 ? clamp(1 + d / innerFadeDepth, 0, 1) : 0;
       const rim = gaussian(d, rimWidth);
-      const directional = Math.pow(clamp(nx * lightDirX + ny * lightDirY, 0, 1), 2.6);
+      const directional = Math.pow(
+        clamp(nx * lightDirX + ny * lightDirY, 0, 1),
+        directionalPower,
+      );
       const secondary = Math.pow(
         clamp(nx * -lightDirX + ny * -lightDirY, 0, 1),
-        5,
-      ) * 0.12;
+        secondaryPower,
+      ) * secondaryGain;
       const topProgress = y / Math.max(1, preset.height - 1);
       const topSheen =
         d <= 0
           ? gaussian(topProgress - topSheenBand, topSheenSigma) *
             Math.pow(clamp(-ny, 0, 1), 1.45) *
-            0.16 *
+            topSheenStrength *
             edgeMask
           : 0;
+      const lateralWeight =
+        lateralBias > 0
+          ? 1 -
+            lateralBias +
+            lateralBias *
+              (lateralFloor +
+                (1 - lateralFloor) * Math.pow(Math.abs(nx), lateralPower))
+          : 1;
 
       const intensity = clamp(
-        rim * (0.18 + directional * 1.08 + secondary * 0.3) +
-          edgeMask * (directional * 0.18 + topSheen),
+        rim * (rimBase + directional * directionalGain + secondary * 0.3) +
+          edgeMask * (directional * edgeDirectionalGain + topSheen),
         0,
         1,
-      );
+      ) * lateralWeight;
       const alpha = clamp(
-        rim * (0.18 + directional * 0.94 + secondary * 0.16) +
-          edgeMask * (directional * 0.1 + topSheen * 0.72),
+        rim * (rimBase + directional * 0.94 + secondary * 0.16) +
+          edgeMask * (directional * alphaDirectionalGain + topSheen * alphaTopSheenGain),
         0,
         1,
-      );
+      ) * lateralWeight;
       const channel = Math.round(255 * intensity);
 
       pixels[offset] = channel;
