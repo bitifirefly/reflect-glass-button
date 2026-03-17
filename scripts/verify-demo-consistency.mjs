@@ -21,6 +21,14 @@ const jsPath = path.join(repoRoot, "src/reflect-glass-button.js");
 const prepaintPath = path.join(repoRoot, "src/reflect-glass-prepaint.js");
 const readmePath = path.join(repoRoot, "README.md");
 const implementationPath = path.join(repoRoot, "IMPLEMENTATION.md");
+const requiredAssetFiles = [
+  "assets/default-pill/displacement-map.png",
+  "assets/default-pill/specular-map.png",
+  "assets/circle-button/displacement-map.png",
+  "assets/circle-button/specular-map.png",
+  "assets/rounded-square-button/displacement-map.png",
+  "assets/rounded-square-button/specular-map.png",
+];
 
 function read(relPath) {
   return fs.readFileSync(path.join(repoRoot, relPath), "utf8");
@@ -45,6 +53,24 @@ function verifyDemoPages() {
     );
     assert(html.includes(requiredRuntime), `${relPath}: missing runtime init call`);
   }
+
+  const showcaseHtml = read("demo/showcase.html");
+  assert(
+    showcaseHtml.includes('href="../assets/circle-button/displacement-map.png"'),
+    'demo/showcase.html: missing circle-button filter wiring'
+  );
+  assert(
+    showcaseHtml.includes('href="../assets/rounded-square-button/displacement-map.png"'),
+    'demo/showcase.html: missing rounded-square-button filter wiring'
+  );
+  assert(
+    showcaseHtml.includes('data-reflect-glass-anchor="#circle-anchor"'),
+    'demo/showcase.html: missing circle button anchor wiring'
+  );
+  assert(
+    showcaseHtml.includes('data-reflect-glass-anchor="#square-anchor"'),
+    'demo/showcase.html: missing rounded-square button anchor wiring'
+  );
 }
 
 function verifyCoreRuntime() {
@@ -68,6 +94,10 @@ function verifyCoreRuntime() {
     prepaint.includes("root.dataset.browserEngine = engine;"),
     "src/reflect-glass-prepaint.js: prepaint detector does not stamp browser engine"
   );
+
+  for (const relPath of requiredAssetFiles) {
+    assert(fs.existsSync(path.join(repoRoot, relPath)), `${relPath}: missing required generated asset`);
+  }
 }
 
 function verifyDocs() {
@@ -79,12 +109,20 @@ function verifyDocs() {
     "README.md: integration guide does not mention the shared prepaint script"
   );
   assert(
+    readme.includes("data-reflect-glass-anchor"),
+    "README.md: integration guide does not mention per-button anchor wiring"
+  );
+  assert(
     readme.includes("before the stylesheet"),
     "README.md: missing note about loading the prepaint script before CSS"
   );
   assert(
     implementation.includes("reflect-glass-prepaint.js"),
     "IMPLEMENTATION.md: integration contract does not mention the prepaint script"
+  );
+  assert(
+    implementation.includes("data-reflect-glass-anchor"),
+    "IMPLEMENTATION.md: missing per-button anchor guidance"
   );
 }
 

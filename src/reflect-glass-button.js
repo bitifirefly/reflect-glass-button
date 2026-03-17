@@ -40,10 +40,13 @@
     }
 
     var settings = options || {};
+    var anchorSelector =
+      target.getAttribute("data-reflect-glass-anchor") ||
+      settings.anchorSelector;
     var anchor =
       settings.anchor ||
-      (settings.anchorSelector
-        ? document.querySelector(settings.anchorSelector)
+      (anchorSelector
+        ? document.querySelector(anchorSelector)
         : document.querySelector(".reflect-glass-anchor"));
 
     if (!anchor) {

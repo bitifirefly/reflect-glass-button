@@ -299,6 +299,26 @@ h3 {
   bottom: 34px;
 }
 
+.circle-anchor {
+  inset: auto 28px 28px auto;
+  width: 140px;
+  height: 140px;
+  right: 28px;
+  left: auto;
+  top: auto;
+  bottom: 28px;
+}
+
+.square-anchor {
+  inset: auto auto 28px 28px;
+  width: 148px;
+  height: 148px;
+  left: 28px;
+  right: auto;
+  top: auto;
+  bottom: 28px;
+}
+
 .story-card {
   padding: 28px;
   display: grid;
@@ -404,6 +424,64 @@ h3 {
   margin-bottom: 8px;
 }
 
+.showcase-pill-button {
+  --reflect-glass-filter: url("#reflectGlass");
+}
+
+.showcase-circle-button {
+  --reflect-glass-width: 124px;
+  --reflect-glass-height: 124px;
+  --reflect-glass-min-width: 124px;
+  --reflect-glass-min-height: 124px;
+  --reflect-glass-padding: 0;
+  --reflect-glass-radius: 62px;
+  --reflect-glass-inner-radius: 61px;
+  --reflect-glass-highlight-top: 11px;
+  --reflect-glass-highlight-height: 20px;
+  --reflect-glass-highlight-margin: 20px;
+  --reflect-glass-glow-side: 22px;
+  --reflect-glass-glow-bottom: 18px;
+  --reflect-glass-glow-height: 16px;
+  --reflect-glass-label-size: 0.84rem;
+  --reflect-glass-label-line-height: 1.1;
+  --reflect-glass-label-letter-spacing: 0.02em;
+  --reflect-glass-label-max-width: 4.6em;
+  --reflect-glass-filter: url("#reflectGlassCircle");
+  --reflect-glass-chromium-highlight-top: 12px;
+  --reflect-glass-chromium-highlight-height: 16px;
+  --reflect-glass-chromium-highlight-margin: 24px;
+  --reflect-glass-chromium-glow-side: 24px;
+  --reflect-glass-chromium-glow-bottom: 15px;
+  --reflect-glass-chromium-glow-height: 13px;
+}
+
+.showcase-square-button {
+  --reflect-glass-width: 132px;
+  --reflect-glass-height: 132px;
+  --reflect-glass-min-width: 132px;
+  --reflect-glass-min-height: 132px;
+  --reflect-glass-padding: 0 10px;
+  --reflect-glass-radius: 34px;
+  --reflect-glass-inner-radius: 33px;
+  --reflect-glass-highlight-top: 10px;
+  --reflect-glass-highlight-height: 22px;
+  --reflect-glass-highlight-margin: 20px;
+  --reflect-glass-glow-side: 20px;
+  --reflect-glass-glow-bottom: 16px;
+  --reflect-glass-glow-height: 16px;
+  --reflect-glass-label-size: 0.84rem;
+  --reflect-glass-label-line-height: 1.1;
+  --reflect-glass-label-letter-spacing: 0.02em;
+  --reflect-glass-label-max-width: 5.2em;
+  --reflect-glass-filter: url("#reflectGlassRoundedSquare");
+  --reflect-glass-chromium-highlight-top: 11px;
+  --reflect-glass-chromium-highlight-height: 18px;
+  --reflect-glass-chromium-highlight-margin: 22px;
+  --reflect-glass-chromium-glow-side: 21px;
+  --reflect-glass-chromium-glow-bottom: 13px;
+  --reflect-glass-chromium-glow-height: 12px;
+}
+
 @media (max-width: 1080px) {
   .showcase-shell {
     grid-template-columns: 1fr;
@@ -416,6 +494,16 @@ h3 {
   .content-grid {
     grid-template-columns: 1fr;
   }
+
+  .circle-anchor {
+    right: 22px;
+    bottom: 22px;
+  }
+
+  .square-anchor {
+    left: 22px;
+    bottom: 22px;
+  }
 }
 
 @media (max-width: 860px) {
@@ -425,5 +513,11 @@ h3 {
 
   .hero-metrics {
     grid-template-columns: 1fr;
+  }
+
+  .circle-anchor,
+  .square-anchor {
+    width: 124px;
+    height: 124px;
   }
 }

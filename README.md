@@ -28,9 +28,11 @@ https://github.com/user-attachments/assets/7d852b08-4c27-4827-ba61-e7f2b669e760
 ```text
 reflect-glass-button/
 ├── assets/
+│   ├── circle-button/
 │   ├── default-pill/
 │   ├── hero-pill/
-│   └── motion-pill/
+│   ├── motion-pill/
+│   └── rounded-square-button/
 ├── demo/
 │   ├── captures/
 │   │   ├── showcase-capture-1.png
@@ -48,8 +50,10 @@ reflect-glass-button/
 │   └── showcase.html
 ├── scripts/
 │   ├── generate-reflect-glass-assets.mjs
+│   ├── verify-demo-consistency.mjs
 │   └── serve.mjs
 ├── src/
+│   ├── reflect-glass-prepaint.js
 │   ├── reflect-glass-button.css
 │   └── reflect-glass-button.js
 ├── IMPLEMENTATION.md
@@ -62,6 +66,7 @@ reflect-glass-button/
 
 - Plain HTML, CSS, and JavaScript
 - Shape-matched displacement/specular PNG assets generated inside the repo
+- Built-in presets for pill, circle, and rounded-square buttons
 - Chromium-only SVG refraction path that consumes those generated assets
 - Draggable button with Pointer Events
 - Glass effect built from layered gradients, inner highlights, and `backdrop-filter`
@@ -73,6 +78,7 @@ reflect-glass-button/
 ```bash
 cd reflect-glass-button
 npm run generate:assets
+npm run verify:consistency
 npm run dev
 ```
 
@@ -95,6 +101,34 @@ Generate a single preset:
 npm run generate:assets -- --preset hero-pill
 ```
 
+Built-in preset names:
+
+- `default-pill`
+- `hero-pill`
+- `motion-pill`
+- `circle-button`
+- `rounded-square-button`
+
+Generate a brand-new rounded-rect family preset without editing the script:
+
+```bash
+npm run generate:assets -- \
+  --name campus-circle \
+  --width 124 \
+  --height 124 \
+  --radius 62 \
+  --rim 24
+```
+
+The built-in generator currently covers the rounded-rectangle family, so pills,
+circles, and rounded squares all use the same workflow.
+
+That will create `assets/campus-circle/` with:
+
+- `displacement-map.png`
+- `specular-map.png`
+- `preset.json`
+
 ## Reuse In Another Project
 
 1. Generate optical assets for the exact button shape you want.
@@ -108,7 +142,12 @@ npm run generate:assets -- --preset hero-pill
 ```html
 <div class="reflect-glass-anchor" aria-hidden="true"></div>
 
-<button class="reflect-glass-button" data-reflect-glass type="button">
+<button
+  class="reflect-glass-button"
+  data-reflect-glass
+  data-reflect-glass-anchor="#my-glass-anchor"
+  type="button"
+>
   <span class="reflect-glass-surface" aria-hidden="true"></span>
   <span class="reflect-glass-ornament" aria-hidden="true"></span>
   <span class="reflect-glass-label">Launch</span>
@@ -173,6 +212,11 @@ Supported options:
 - `anchorSelector`: fallback selector for initial placement
 - `dragThreshold`: number of pixels before drag suppresses click
 
+Supported markup attributes:
+
+- `data-reflect-glass-anchor="#selector"`: lets each button resolve its own
+  initial anchor without separate `init()` calls
+
 ## Browser Behavior
 
 - Chromium-based browsers use the generated SVG filter directly through
@@ -185,6 +229,7 @@ Supported options:
 See [IMPLEMENTATION.md](./IMPLEMENTATION.md) for a breakdown of:
 
 - optical asset generation
+- custom preset creation
 - SVG filter wiring
 - visual layers
 - drag behavior

@@ -24,6 +24,20 @@ const DEFAULT_PRESETS = [
     radius: 38,
     rim: 28,
   },
+  {
+    name: "circle-button",
+    width: 124,
+    height: 124,
+    radius: 62,
+    rim: 24,
+  },
+  {
+    name: "rounded-square-button",
+    width: 132,
+    height: 132,
+    radius: 34,
+    rim: 24,
+  },
 ];
 
 const outputRoot = path.resolve("assets");
@@ -275,10 +289,71 @@ function generatePreset(preset) {
   writePresetMetadata(preset, outputDir);
 }
 
+function readFlagValue(flag) {
+  const index = process.argv.findIndex((arg) => arg === flag);
+  return index >= 0 && process.argv[index + 1] ? process.argv[index + 1] : null;
+}
+
+function readNumberFlag(flag) {
+  const value = readFlagValue(flag);
+  if (value === null) {
+    return null;
+  }
+
+  const numericValue = Number(value);
+  if (!Number.isFinite(numericValue) || numericValue <= 0) {
+    throw new Error(`Flag "${flag}" must be a positive number.`);
+  }
+
+  return numericValue;
+}
+
+function parseCustomPreset() {
+  const name = readFlagValue("--name");
+  if (!name) {
+    return null;
+  }
+
+  const width = readNumberFlag("--width");
+  const height = readNumberFlag("--height");
+  const radius = readNumberFlag("--radius");
+  const rim = readNumberFlag("--rim");
+
+  if (width === null || height === null || radius === null || rim === null) {
+    throw new Error(
+      'Custom preset generation requires "--name", "--width", "--height", "--radius", and "--rim".',
+    );
+  }
+
+  const maxRadius = Math.min(width, height) / 2;
+  if (radius > maxRadius) {
+    throw new Error(
+      `Flag "--radius" (${radius}) must be <= min(width, height) / 2 (${maxRadius}).`,
+    );
+  }
+
+  return {
+    name,
+    width,
+    height,
+    radius,
+    rim,
+  };
+}
+
 function parsePresetSelection() {
-  const presetFlagIndex = process.argv.findIndex((arg) => arg === "--preset");
-  if (presetFlagIndex >= 0 && process.argv[presetFlagIndex + 1]) {
-    const selectedName = process.argv[presetFlagIndex + 1];
+  const selectedName = readFlagValue("--preset");
+  const customPreset = parseCustomPreset();
+
+  if (selectedName && customPreset) {
+    throw new Error('Use either "--preset <name>" or the custom preset flags, not both.');
+  }
+
+  if (customPreset) {
+    return [customPreset];
+  }
+
+  if (selectedName) {
     const preset = DEFAULT_PRESETS.find((item) => item.name === selectedName);
     if (!preset) {
       throw new Error(

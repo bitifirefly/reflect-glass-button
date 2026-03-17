@@ -71,6 +71,110 @@
           />
           <feBlend in="specularFaded" in2="withSpecular" mode="normal" />
         </filter>
+
+        <filter id="reflectGlassCircle" color-interpolation-filters="sRGB">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="0.8" result="blurredSource" />
+          <feImage
+            href="../assets/circle-button/displacement-map.png"
+            x="0"
+            y="0"
+            width="124"
+            height="124"
+            preserveAspectRatio="none"
+            result="displacementMap"
+          />
+          <feDisplacementMap
+            in="blurredSource"
+            in2="displacementMap"
+            scale="62"
+            xChannelSelector="R"
+            yChannelSelector="G"
+            result="displaced"
+          />
+          <feColorMatrix
+            in="displaced"
+            type="saturate"
+            values="5.2"
+            result="displacedSaturated"
+          />
+          <feImage
+            href="../assets/circle-button/specular-map.png"
+            x="0"
+            y="0"
+            width="124"
+            height="124"
+            preserveAspectRatio="none"
+            result="specularLayer"
+          />
+          <feComposite
+            in="displacedSaturated"
+            in2="specularLayer"
+            operator="in"
+            result="specularSaturated"
+          />
+          <feComponentTransfer in="specularLayer" result="specularFaded">
+            <feFuncA type="linear" slope="0.42" />
+          </feComponentTransfer>
+          <feBlend
+            in="specularSaturated"
+            in2="displaced"
+            mode="normal"
+            result="withSpecular"
+          />
+          <feBlend in="specularFaded" in2="withSpecular" mode="normal" />
+        </filter>
+
+        <filter id="reflectGlassRoundedSquare" color-interpolation-filters="sRGB">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="0.8" result="blurredSource" />
+          <feImage
+            href="../assets/rounded-square-button/displacement-map.png"
+            x="0"
+            y="0"
+            width="132"
+            height="132"
+            preserveAspectRatio="none"
+            result="displacementMap"
+          />
+          <feDisplacementMap
+            in="blurredSource"
+            in2="displacementMap"
+            scale="62"
+            xChannelSelector="R"
+            yChannelSelector="G"
+            result="displaced"
+          />
+          <feColorMatrix
+            in="displaced"
+            type="saturate"
+            values="5.2"
+            result="displacedSaturated"
+          />
+          <feImage
+            href="../assets/rounded-square-button/specular-map.png"
+            x="0"
+            y="0"
+            width="132"
+            height="132"
+            preserveAspectRatio="none"
+            result="specularLayer"
+          />
+          <feComposite
+            in="displacedSaturated"
+            in2="specularLayer"
+            operator="in"
+            result="specularSaturated"
+          />
+          <feComponentTransfer in="specularLayer" result="specularFaded">
+            <feFuncA type="linear" slope="0.42" />
+          </feComponentTransfer>
+          <feBlend
+            in="specularSaturated"
+            in2="displaced"
+            mode="normal"
+            result="withSpecular"
+          />
+          <feBlend in="specularFaded" in2="withSpecular" mode="normal" />
+        </filter>
       </defs>
     </svg>
 
@@ -178,7 +282,11 @@
               <span>built from inline SVG only</span>
             </div>
 
-            <div class="reflect-glass-anchor hero-anchor" aria-hidden="true"></div>
+            <div
+              class="reflect-glass-anchor hero-anchor"
+              id="pill-anchor"
+              aria-hidden="true"
+            ></div>
           </div>
         </article>
 
@@ -216,6 +324,12 @@
               </ul>
             </article>
           </div>
+
+          <div
+            class="reflect-glass-anchor circle-anchor"
+            id="circle-anchor"
+            aria-hidden="true"
+          ></div>
         </section>
 
         <section class="notes-card panel-surface" id="stories">
@@ -228,10 +342,10 @@
             <article class="note-item">
               <span class="note-index">01</span>
               <div>
-                <h3>Button stays draggable</h3>
+                <h3>Three draggable presets</h3>
                 <p>
-                  The screenshot uses the same runtime, variables, and generated
-                  optical maps as the live demo, so the preview remains representative.
+                  The live page now ships pill, circle, and rounded-square
+                  variants from the same runtime so the preset workflow is visible.
                 </p>
               </div>
             </article>
@@ -256,18 +370,49 @@
               </div>
             </article>
           </div>
+
+          <div
+            class="reflect-glass-anchor square-anchor"
+            id="square-anchor"
+            aria-hidden="true"
+          ></div>
         </section>
       </section>
 
       <button
-        class="reflect-glass-button"
+        class="reflect-glass-button showcase-pill-button"
         data-reflect-glass
+        data-reflect-glass-anchor="#pill-anchor"
         type="button"
         aria-label="Open showcase"
       >
         <span class="reflect-glass-surface" aria-hidden="true"></span>
         <span class="reflect-glass-ornament" aria-hidden="true"></span>
         <span class="reflect-glass-label">Open View</span>
+      </button>
+
+      <button
+        class="reflect-glass-button showcase-circle-button"
+        data-reflect-glass
+        data-reflect-glass-anchor="#circle-anchor"
+        type="button"
+        aria-label="Circle preset"
+      >
+        <span class="reflect-glass-surface" aria-hidden="true"></span>
+        <span class="reflect-glass-ornament" aria-hidden="true"></span>
+        <span class="reflect-glass-label">Circle</span>
+      </button>
+
+      <button
+        class="reflect-glass-button showcase-square-button"
+        data-reflect-glass
+        data-reflect-glass-anchor="#square-anchor"
+        type="button"
+        aria-label="Rounded square preset"
+      >
+        <span class="reflect-glass-surface" aria-hidden="true"></span>
+        <span class="reflect-glass-ornament" aria-hidden="true"></span>
+        <span class="reflect-glass-label">Square</span>
       </button>
     </main>
 
